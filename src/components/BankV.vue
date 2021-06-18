@@ -3,7 +3,7 @@
     <div class="rms-wraper">
       <RmV
         v-for="(rm, index) in reversRmAry"
-        :key="index"
+        :key="rm.keyIndex"
         :rmObj="rm"
         :posIndex="index"
         :isRemoveTransition="index == 7"
@@ -50,13 +50,27 @@ export default defineComponent({
   setup(props) {
     // const prtValidAry = ref<boolean[]>([true, true, false]);
 
+    let serialKeyNum = 0;
+
+    type hoge1 = { name: string; age: number };
+    type hoge2 = hoge1 & { hobby?: string };
+
+    const hogehoge: hoge2 = { name: "kubota", age: 45, hobby: "programing" };
+
     //配列の逆順にして、足りない文は
     const reversRmAry = computed(() => {
-      const copyAry = props.rmAry.slice();
+      //RmTypeにkeyIndexを足した型(v-for表示のための使い捨ての型)
+      const copyAry: (RmType & { keyIndex?: number })[] = props.rmAry.slice();
       const len = copyAry.length;
 
+      //８個以下のときにDummyの配列を追加
       for (let i = 0; i < 8 - len; i++) {
         copyAry.push({ num: 255, enable: false });
+      }
+
+      //v-forのために通しのkeyIndexを降る(削除があるのでこれのほうが安全？)
+      for (let i = 0; i < 8; i++) {
+        copyAry[i].keyIndex = serialKeyNum++;
       }
 
       return copyAry.reverse();
