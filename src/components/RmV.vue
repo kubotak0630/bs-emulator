@@ -13,11 +13,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, PropType, watch } from "vue";
-import { RmType } from "@/components/BankV.vue";
+import { defineComponent, ref, PropType, watch } from 'vue';
+import { RmType } from '@/types/commonTypes';
 
 export default defineComponent({
-  name: "RmV",
+  name: 'RmV',
   props: {
     rmObj: {
       type: Object as PropType<RmType>,
@@ -60,6 +60,7 @@ export default defineComponent({
 /* 非表示アニメーション動作後のスタイル */
 .v-leave-to {
   transform: scaleY(0);
+  // transform: scaleX(0);
 }
 
 /* 非表示アニメーション動作中のスタイル */

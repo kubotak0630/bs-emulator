@@ -32,17 +32,27 @@
       ><i class="el-icon-caret-right"></i
     ></el-button>
   </div>
+
+  <div class="niu-hard">
+    <!-- <NiuHardV :fifoElAry="niuHard.getBufs()" /> -->
+    <NiuHardV :fifoElAry="niuAry" />
+  </div>
+
+  <el-button type="primary" @click="OnNiuTest()">NiuTest</el-button>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, toRefs, PropType, watch, computed } from "vue";
-import BankV from "@/components/BankV.vue";
-import useIpcBanks from "@/composables/useIpcBanks";
+import { defineComponent, ref, toRefs, PropType, watch, computed } from 'vue';
+import BankV from '@/components/BankV.vue';
+import NiuHardV from '@/components/NiuHardV.vue';
+import useIpcBanks from '@/composables/useIpcBanks';
+import { useNiuHard } from '@/composables/useNiuHard';
 
 export default defineComponent({
-  name: "BsTopV",
+  name: 'BsTopV',
   components: {
     BankV,
+    NiuHardV,
   },
   props: {},
   setup() {
@@ -59,8 +69,10 @@ export default defineComponent({
     const midPtr = ref(0);
     const HiPtr = ref(0);
 
+    const niuHard = useNiuHard();
+
     const handleClick = (index: number) => {
-      console.log("click Buttion");
+      console.log('click Buttion');
       //popRm();
       bankAry[index].popRm();
     };
@@ -93,6 +105,13 @@ export default defineComponent({
       return retVal;
     });
 
+    const OnNiuTest = () => {
+      console.log('Call OnNiuTest');
+      niuHard.push({ num: 1, enable: true });
+    };
+
+    const niuAry = niuHard.getBufs();
+
     return {
       rmAry0,
       rmAry1,
@@ -102,6 +121,9 @@ export default defineComponent({
       handleClickLeft,
       handleClickRight,
       prtAryCompute,
+      niuHard,
+      niuAry,
+      OnNiuTest,
     };
   },
 });
@@ -118,5 +140,9 @@ export default defineComponent({
 
 .pop-btn-wrapper {
   margin: 40px 10px 10px 20px;
+}
+
+.niu-hard {
+  margin: 20px 20px;
 }
 </style>

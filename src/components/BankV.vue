@@ -22,17 +22,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, reactive, computed, PropType } from "vue";
-import RmV from "@/components/RmV.vue";
-import PriorityPtrV from "@/components/PriorityPtrV.vue";
-
-export type RmType = {
-  num: number;
-  enable: boolean;
-};
+import { defineComponent, ref, reactive, computed, PropType } from 'vue';
+import RmV from '@/components/RmV.vue';
+import PriorityPtrV from '@/components/PriorityPtrV.vue';
+import { RmType } from '@/types/commonTypes';
 
 export default defineComponent({
-  name: "BankV",
+  name: 'BankV',
   components: {
     RmV,
     PriorityPtrV,
@@ -55,12 +51,12 @@ export default defineComponent({
     type hoge1 = { name: string; age: number };
     type hoge2 = hoge1 & { hobby?: string };
 
-    const hogehoge: hoge2 = { name: "kubota", age: 45, hobby: "programing" };
+    const hogehoge: hoge2 = { name: 'kubota', age: 45, hobby: 'programing' };
 
     //配列の逆順にして、足りない文は
     const reversRmAry = computed(() => {
       //RmTypeにkeyIndexを足した型(v-for表示のための使い捨ての型)
-      const copyAry: (RmType & { keyIndex?: number })[] = props.rmAry.slice();
+      const copyAry: (RmType & { keyIndex?: number })[] = Array.from(props.rmAry);
       const len = copyAry.length;
 
       //８個以下のときにDummyの配列を追加
