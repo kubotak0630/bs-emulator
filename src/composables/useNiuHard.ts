@@ -13,12 +13,16 @@ class NiuHard {
   }
 
   pop() {
-    this.bufs.value.slice();
+    this.bufs.value[0].enable = false;
+    setTimeout(() => {
+      this.bufs.value.shift();
+      console.log(`length=${this.bufs.value.length}`);
+    }, 500);
   }
 
   // Vueのデータバインディング用
-  getBufs(): Ref<RmType[]> {
-    return this.bufs;
+  getBufs(): RmType[] {
+    return this.bufs.value;
   }
 }
 

@@ -34,11 +34,11 @@
   </div>
 
   <div class="niu-hard">
-    <!-- <NiuHardV :fifoElAry="niuHard.getBufs()" /> -->
     <NiuHardV :fifoElAry="niuAry" />
   </div>
 
-  <el-button type="primary" @click="OnNiuTest()">NiuTest</el-button>
+  <el-button type="primary" @click="OnNiuPush()">NiuPush</el-button>
+  <el-button type="primary" @click="OnNiuPop()">NiuPop</el-button>
 </template>
 
 <script lang="ts">
@@ -105,9 +105,15 @@ export default defineComponent({
       return retVal;
     });
 
-    const OnNiuTest = () => {
-      console.log('Call OnNiuTest');
-      niuHard.push({ num: 1, enable: true });
+    let niuPketNum = 0;
+    const OnNiuPush = () => {
+      console.log('Call OnNiuPush');
+      niuHard.push({ num: niuPketNum++, enable: true });
+    };
+
+    const OnNiuPop = () => {
+      console.log('Call OnNiuPpo');
+      niuHard.pop();
     };
 
     const niuAry = niuHard.getBufs();
@@ -123,7 +129,8 @@ export default defineComponent({
       prtAryCompute,
       niuHard,
       niuAry,
-      OnNiuTest,
+      OnNiuPush,
+      OnNiuPop,
     };
   },
 });
