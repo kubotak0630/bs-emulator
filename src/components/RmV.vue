@@ -3,7 +3,9 @@
     <!-- transitionをかけるのは一番下のセルだけ -->
     <div v-if="isRemoveTransition">
       <transition>
-        <div class="rm" v-show="rmObj.enable">{{ rmObj.num }}</div>
+        <div class="rm" :class="{ 'now-delete': !rmObj.enable }" v-show="rmObj.enable">
+          {{ rmObj.num }}
+        </div>
       </transition>
     </div>
     <div v-else>
@@ -57,6 +59,14 @@ export default defineComponent({
   border: solid 1px blue;
 }
 
+// 消える瞬間に当たるスタイル。
+.now-delete {
+  opacity: 0.7;
+  height: 20px;
+  // background-color: pink;
+  border: solid 3px blue;
+}
+
 /* 非表示アニメーション動作後のスタイル */
 .v-leave-to {
   transform: scaleY(0);
@@ -67,7 +77,7 @@ export default defineComponent({
 .v-leave-active {
   transition-property: all;
   transition-duration: 250ms;
-  transition-delay: 0ms;
+  transition-delay: 200ms;
   transition-timing-function: linear;
 }
 </style>

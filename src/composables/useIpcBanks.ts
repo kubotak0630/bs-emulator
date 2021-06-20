@@ -1,9 +1,5 @@
-import { ref, Ref, readonly, InjectionKey } from "vue";
-
-type RmType = {
-  num: number;
-  enable: boolean;
-};
+import { ref, Ref, readonly, InjectionKey } from 'vue';
+import { RmType } from '@/types/commonTypes';
 
 const IPC_BANK_NUM = 4;
 
@@ -23,7 +19,7 @@ class Bank {
       this.rmAry.value[0].enable = false;
       setTimeout(() => {
         this.rmAry.value.shift();
-      }, 500);
+      }, 700);
     }
   }
   getRm() {

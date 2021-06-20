@@ -39,14 +39,18 @@
 
   <el-button type="primary" @click="OnNiuPush()">NiuPush</el-button>
   <el-button type="primary" @click="OnNiuPop()">NiuPop</el-button>
+
+  <canvas id="canvas-area" width="640" height="480"></canvas>
+  <el-button type="primary" @click="OnRenderDebug()">RenderDebug</el-button>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, toRefs, PropType, watch, computed } from 'vue';
+import { defineComponent, ref, toRefs, PropType, watch, computed, onMounted } from 'vue';
 import BankV from '@/components/BankV.vue';
 import NiuHardV from '@/components/NiuHardV.vue';
 import useIpcBanks from '@/composables/useIpcBanks';
 import { useNiuHard } from '@/composables/useNiuHard';
+import { useNandIfRender } from '@/composables/useNandIfRender';
 
 export default defineComponent({
   name: 'BsTopV',
@@ -70,6 +74,7 @@ export default defineComponent({
     const HiPtr = ref(0);
 
     const niuHard = useNiuHard();
+    const nandIfRender = useNandIfRender();
 
     const handleClick = (index: number) => {
       console.log('click Buttion');
@@ -118,6 +123,21 @@ export default defineComponent({
 
     const niuAry = niuHard.getBufs();
 
+    const bindCanvas = onMounted(() => {
+      const canvas = document.getElementById('canvas-area') as HTMLCanvasElement;
+
+      if (!canvas) {
+        console.log('Error canvas bind');
+        return;
+      }
+
+      nandIfRender.setCanvas(canvas);
+    });
+
+    const OnRenderDebug = () => {
+      nandIfRender.clear();
+    };
+
     return {
       rmAry0,
       rmAry1,
@@ -131,6 +151,8 @@ export default defineComponent({
       niuAry,
       OnNiuPush,
       OnNiuPop,
+      bindCanvas,
+      OnRenderDebug,
     };
   },
 });
@@ -151,5 +173,13 @@ export default defineComponent({
 
 .niu-hard {
   margin: 20px 20px;
+}
+
+// この位置合わせは暫定
+#canvas-area {
+  position: absolute;
+  top: 600px;
+  left: 400px;
+  background-color: #f6f6f6;
 }
 </style>

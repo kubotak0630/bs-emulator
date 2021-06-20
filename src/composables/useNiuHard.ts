@@ -1,10 +1,13 @@
 import { ref, Ref } from 'vue';
 import { RmType } from '@/types/commonTypes';
+import { useNandIfRender } from '@/composables/useNandIfRender';
 
 class NiuHard {
   private bufs: Ref<RmType[]>;
+  private nandIfRender;
   constructor() {
     this.bufs = ref([] as RmType[]);
+    this.nandIfRender = useNandIfRender();
   }
 
   push(rm: RmType) {
@@ -13,11 +16,15 @@ class NiuHard {
   }
 
   pop() {
-    this.bufs.value[0].enable = false;
-    setTimeout(() => {
-      this.bufs.value.shift();
-      console.log(`length=${this.bufs.value.length}`);
-    }, 500);
+    if (this.bufs.value.length > 0) {
+      this.bufs.value[0].enable = false;
+      setTimeout(() => {
+        const pkt = this.bufs.value.shift()!;
+        console.log(`length=${this.bufs.value.length}`);
+
+        this.nandIfRender.push(pkt);
+      }, 500);
+    }
   }
 
   // Vueのデータバインディング用
