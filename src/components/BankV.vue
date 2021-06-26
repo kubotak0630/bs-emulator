@@ -1,6 +1,7 @@
 <template>
   <div class="bank">
     <div class="rms-wraper">
+      <div class="bank-info">L0</div>
       <RmV
         v-for="(rm, index) in reversRmAry"
         :key="rm.keyIndex"
@@ -94,5 +95,13 @@ export default defineComponent({
   position: relative;
   // background-color: yellow;
   top: 10px;
+}
+
+.bank-info {
+  position: absolute;
+  top: -14px;
+  left: 82px;
+  color: #202020;
+  font-size: 14px;
 }
 </style>
