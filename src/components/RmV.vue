@@ -3,13 +3,19 @@
     <!-- transitionをかけるのは一番下のセルだけ -->
     <div v-if="isRemoveTransition">
       <transition>
-        <div class="rm" :class="{ 'now-delete': !rmObj.enable }" v-show="rmObj.enable">
+        <div
+          class="rm"
+          :class="{ 'now-delete': !rmObj.enable, 'mid-flg': rmObj.midFlg }"
+          v-show="rmObj.enable"
+        >
           {{ rmObj.num }}
         </div>
       </transition>
     </div>
     <div v-else>
-      <div class="rm" v-show="rmObj.enable">{{ rmObj.num }}</div>
+      <div class="rm" v-show="rmObj.enable" :class="{ 'mid-flg': rmObj.midFlg }">
+        {{ rmObj.num }}
+      </div>
     </div>
   </div>
 </template>
@@ -52,11 +58,19 @@ export default defineComponent({
   // background-color: purple;
 }
 
+// D64F64 をHiに使う
+
 .rm {
   text-align: center;
   height: 24px;
-  background-color: pink;
-  border: solid 1px blue;
+  background-color: #edcf6b;
+  border: solid 1px darkblue;
+  border-radius: 4px;
+  color: #202020;
+}
+
+.mid-flg {
+  background-color: #f37358;
 }
 
 // 消える瞬間に当たるスタイル。
@@ -64,7 +78,7 @@ export default defineComponent({
   opacity: 0.7;
   height: 20px;
   // background-color: pink;
-  border: solid 3px blue;
+  border: solid 3px darkblue;
 }
 
 /* 非表示アニメーション動作後のスタイル */

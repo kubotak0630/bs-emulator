@@ -40,7 +40,7 @@ export default defineComponent({
       const len = copyAry.length;
       //８個以下のときにDummyの配列を追加
       for (let i = 0; i < 8 - len; i++) {
-        copyAry.push({ num: 0, enable: false });
+        copyAry.push({ num: 0, enable: false, midFlg: false });
       }
 
       return copyAry;

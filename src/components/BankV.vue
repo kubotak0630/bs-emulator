@@ -61,7 +61,7 @@ export default defineComponent({
 
       //８個以下のときにDummyの配列を追加
       for (let i = 0; i < 8 - len; i++) {
-        copyAry.push({ num: 255, enable: false });
+        copyAry.push({ num: 255, enable: false, midFlg: false });
       }
 
       //v-forのために通しのkeyIndexを降る(削除があるのでこれのほうが安全？)
@@ -85,9 +85,9 @@ export default defineComponent({
   width: 100px;
   height: 226px;
   background-color: lightgray;
-  border-bottom: solid 3px red;
-  border-right: solid 3px red;
-  border-left: solid 3px red;
+  border-bottom: solid 3px #606060;
+  border-right: solid 3px #606060;
+  border-left: solid 3px #606060;
 }
 
 .rms-wraper {

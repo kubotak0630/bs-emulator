@@ -1,4 +1,7 @@
 <template>
+  <el-tooltip effect="dark" content="Top Left prompts info" placement="top-start">
+    <div class="test-box"></div>
+  </el-tooltip>
   <div class="banks-wrapper">
     <BankV class="bank" :rmAry="rmAry0" :prtValidAry="prtAryCompute[0]"></BankV>
     <BankV class="bank" :rmAry="rmAry1" :prtValidAry="prtAryCompute[1]"></BankV>
@@ -7,7 +10,7 @@
   </div>
 
   <div class="pop-btn-wrapper">
-    <el-button type="primary" @click="handleClick(0)">Pop-Bank0</el-button>
+    <el-button class="my-btn" type="primary" @click="handleClick(0)">Pop-Bank0</el-button>
     <el-button type="primary" @click="handleClick(1)">Pop-Bank1</el-button>
     <el-button type="primary" @click="handleClick(2)">Pop-Bank2</el-button>
     <el-button type="primary" @click="handleClick(3)">Pop-Bank3</el-button>
@@ -113,7 +116,7 @@ export default defineComponent({
     let niuPketNum = 0;
     const OnNiuPush = () => {
       console.log('Call OnNiuPush');
-      niuHard.push({ num: niuPketNum++, enable: true });
+      niuHard.push({ num: niuPketNum++, enable: true, midFlg: false });
     };
 
     const OnNiuPop = () => {
@@ -181,5 +184,12 @@ export default defineComponent({
   top: 600px;
   left: 400px;
   background-color: #f6f6f6;
+}
+
+.test-box {
+  margin: 20px 20px 50px 20px;
+  height: 20px;
+  width: 40px;
+  background-color: orange;
 }
 </style>

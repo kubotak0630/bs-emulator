@@ -2,27 +2,27 @@
   <div class="priptr-container">
     <div class="wrapper">
       <transition appear>
-        <div class="ptr" v-if="lo_valid">L</div>
+        <div class="ptr rotate-l" v-if="lo_valid">L</div>
       </transition>
     </div>
     <div class="wrapper">
       <transition>
-        <div class="ptr" v-show="middle_valid">M</div>
+        <div class="ptr rotate-m" v-show="middle_valid">M</div>
       </transition>
     </div>
     <div class="wrapper">
       <transition>
-        <div class="ptr" v-show="high_valid">H</div>
+        <div class="ptr rotate-h" v-show="high_valid">H</div>
       </transition>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, PropType, watch } from "vue";
+import { defineComponent, ref, PropType, watch } from 'vue';
 
 export default defineComponent({
-  name: "PriorityPtrV",
+  name: 'PriorityPtrV',
   props: {
     lo_valid: {
       type: Boolean,
@@ -58,10 +58,27 @@ export default defineComponent({
 }
 
 .ptr {
-  // width: 20px;
+  display: inline-block;
   height: 20px;
+  width: 20px;
+  line-height: 20px;
+  border-radius: 50px;
+  text-align: center;
+  color: #202020;
+  font-weight: bold;
+  font-size: 15px;
 
-  background-color: yellow;
+  &.rotate-l {
+    background-color: #edcf6b;
+  }
+
+  &.rotate-m {
+    background-color: #f37358;
+  }
+
+  &.rotate-h {
+    background-color: #d64f64;
+  }
 }
 
 /* アニメーション中のスタイル */
